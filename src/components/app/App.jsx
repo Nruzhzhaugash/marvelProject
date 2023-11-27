@@ -1,12 +1,24 @@
-import './app.sass'
+import AppHeader from "../appHeader/AppHeader";
+import RandomChar from "../randomChar/RandomChar";
+import CharList from "../charList/CharList";
+import CharInfo from "../charInfo/CharInfo";
 
-function App() {
+import decoration from '../../resources/img/vision.png';
 
-  return <>
-    <div>
-
-    </div>
-  </>
+const App = () => {
+    return (
+        <div className="app">
+            <AppHeader/>
+            <main>
+                <RandomChar/>
+                <div className="char__content">
+                    <CharList/>
+                    <CharInfo/>
+                </div>
+                <img className="bg-decoration" src={decoration} alt="vision"/>
+            </main>
+        </div>
+    )
 }
 
-export default App
+export default App;
