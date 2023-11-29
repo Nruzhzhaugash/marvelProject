@@ -1,30 +1,52 @@
-import {Component} from 'react';
-import Loader from '../Loader/Loader';
+import {Component} from 'react'
+import Loader from '../Loader/Loader'
 import Error from '../Error/Error'
-import MarvelService from '../../services/MarvelService';
-import './charList.scss';
+import MarvelService from '../../services/MarvelService'
+import './charList.scss'
 
 class CharList extends Component {
 
     state = {
         charList: [],
         loading: true,
-        error: false
+        error: false,
+        newItemLoading: false,
+        offset: 1548,
+        charEnded: false
     }
     
-    marvelService = new MarvelService();
+    marvelService = new MarvelService()
 
     componentDidMount() {
-        this.marvelService.getAllCharacters()
+        this.onRequest()
+    }
+
+    onRequest = (offset) => {
+        this.onCharListLoading()
+        this.marvelService.getAllCharacters(offset)
             .then(this.onCharListLoaded)
             .catch(this.onError)
     }
 
-    onCharListLoaded = (charList) => {
+    onCharListLoading = () => {
         this.setState({
-            charList,
-            loading: false
+            newItemLoading: true
         })
+    }
+
+    onCharListLoaded = (newCharList) => {
+        let ended = false
+        if (newCharList.length < 9) {
+            ended = true
+        }
+
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9,
+            charEnded: ended
+        }))
     }
 
     onError = () => {
@@ -36,9 +58,9 @@ class CharList extends Component {
 
     renderItems(arr) {
         const items =  arr.map((item) => {
-            let imgStyle = {'objectFit' : 'cover'};
+            let imgStyle = {'objectFit' : 'cover'}
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-                imgStyle = {'objectFit' : 'unset'};
+                imgStyle = {'objectFit' : 'unset'}
             }
             
             return (
@@ -51,7 +73,7 @@ class CharList extends Component {
                         <div className="char__name">{item.name}</div>
                 </li>
             )
-        });
+        })
         return (
             <ul className="char__grid">
                 {items}
@@ -61,20 +83,25 @@ class CharList extends Component {
 
     render() {
 
-        const {charList, loading, error} = this.state;
+        const {charList, loading, error, offset, newItemLoading, charEnded} = this.state
         
         const items = this.renderItems(charList);
 
-        const errorMessage = error ? <Error/> : null;
-        const spinner = loading ? <Loader/> : null;
-        const content = !(loading || error) ? items : null;
+        const errorMessage = error ? <Error/> : null
+        const spinner = loading ? <Loader/> : null
+        const content = !(loading || error) ? items : null
 
         return (
             <div className="char__list">
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className="button button__main button__long">
+                <button 
+                    className="button button__main button__long"
+                    disabled={newItemLoading}
+                    style={{'display' : charEnded ? 'none' : 'block'}}
+                    onClick={() => this.onRequest(offset)}
+                >
                     <div className="inner">load more</div>
                 </button>
             </div>
