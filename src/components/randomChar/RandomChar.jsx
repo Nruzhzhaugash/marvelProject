@@ -108,6 +108,6 @@ const View = ({char}) => {
     )
 }
 
-View.propTypes 
+View.propTypes
 
 export default RandomChar;
