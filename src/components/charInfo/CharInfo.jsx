@@ -132,14 +132,10 @@ const View = ({char}) => {
     )
 }
 
-View.propTypes = {
-    char: PropTypes.shape({
-        comics: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-    }).isRequired,
+CharInfo.propTypes = {
+    charId: PropTypes.number.isRequired
 }
+
+View.propTypes
 
 export default CharInfo;

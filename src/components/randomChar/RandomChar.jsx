@@ -42,7 +42,7 @@ class RandomChar extends Component {
     }
 
     updateChar = () => {
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
+        const id = Math.floor(Math.random() * (1010789 - 1009146) + 1009146)
         this.onCharLoading()
         this.marvelService
             .getCharacter(id)
@@ -107,5 +107,7 @@ const View = ({char}) => {
         </div>
     )
 }
+
+View.propTypes 
 
 export default RandomChar;
