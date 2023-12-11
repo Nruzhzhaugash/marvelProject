@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
 import Error from '../Error/Error'
 import MarvelService from '../../services/MarvelService'
-import './charList.scss'
+import './charList.scss' 
 
 const CharList = (props) => {
 

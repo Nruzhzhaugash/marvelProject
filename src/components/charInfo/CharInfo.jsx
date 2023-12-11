@@ -14,18 +14,9 @@ const CharInfo = (props) => {
 
     const marvelService = new MarvelService()
 
-    useEffect((prevProps) => {
+    useEffect(() => {
         updateChar()
-        const timerId = setInterval(updateChar, 60000)
-        if(props.charId !== prevProps.charId) {
-            updateChar()
-        }
-        
-        return () => {
-            clearInterval(timerId)
-            setError(true)
-        }
-    }, [])
+    }, [props.charId])
 
     const updateChar = () => {
         const { charId } = props
@@ -42,10 +33,6 @@ const CharInfo = (props) => {
     }
 
     const onCharLoaded = (char) => {
-        // this.setState({
-        //     char,
-        //     loading: false
-        // })
         setChar(char)
         setLoading(false)
     }
