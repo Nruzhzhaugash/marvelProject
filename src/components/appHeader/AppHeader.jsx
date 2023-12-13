@@ -12,15 +12,14 @@ const AppHeader = () => <>
             <ul>
                 <li><NavLink  
                     end
-                    to='/'
                     style={({ isActive }) => ({ color: isActive ? '#9f0013' : 'black'})}
+                    to='/'
                 >Characters</NavLink>
                 </li>
                 /
                 <li><NavLink 
-                    end
-                    to="/comics"
                     style={({ isActive }) => ({ color: isActive ? '#9f0013' : 'black'})}
+                    to="/comics"
                 >Comics</NavLink>
                 </li>
             </ul>
