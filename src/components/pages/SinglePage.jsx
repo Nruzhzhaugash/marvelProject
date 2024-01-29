@@ -8,7 +8,7 @@ import setContent from '../../utils/setContent';
 const SinglePage = (Component, dataType) => {
   const {id} = useParams();
   const [data, setData] = useState(null);
-  const {getComic, getCharacter, clearError, process, setProcess} = useMarvelService();
+  const { getComic, getCharacter, clearError, process, setProcess } = useMarvelService();
 
   useEffect(() => {
     updateData();
@@ -43,3 +43,4 @@ const SinglePage = (Component, dataType) => {
 }
 
 export default SinglePage;
+// ;
