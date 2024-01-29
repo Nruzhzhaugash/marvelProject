@@ -5,16 +5,14 @@ import PropTypes from 'prop-types';
 
 import './singleComicPage.scss';
 
-import Loader from '../Loader/Loader';
-import NoMatch from './NoMatch'
-
 import useMarvelService from '../../services/MarvelService';
+import { setContent } from '../../utils/setContent';
 
 const SingleComicPage = () => {
   const {comicId} = useParams()
   const [comic, setComic] = useState(null)
 
-  const {loading, error, getComics, clearError} = useMarvelService()
+  const { getComics, clearError, process, setProcess } = useMarvelService()
 
   useEffect(() => {
     updateComic()
@@ -24,27 +22,22 @@ const SingleComicPage = () => {
     clearError()
     getComics(comicId)
       .then(onComicLoaded)
+      .then(() => setProcess('confirmed'))
   }
 
   const onComicLoaded = (comic) => {
       setComic(comic)
   }
 
-  const errorMessage = error ? <NoMatch /> : null
-  const spinner = loading ? <Loader /> : null
-  const content = !(loading || error || !comic) ? <View comic={comic} /> : null
-
   return (
     <>
-      {errorMessage}
-      {spinner}
-      {content}
+      {setContent(process, View, comic)}
     </>
   )
 }
 
-const View = ({comic}) => {
-  const {title, description, thumbnail, price, language, pageCount} = comic
+const View = ({data}) => {
+  const {title, description, thumbnail, price, language, pageCount} = data
 
   return (
     <>
