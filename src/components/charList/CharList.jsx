@@ -10,16 +10,12 @@ const setContent = (process, Component, newItemLoading) => {
     switch (process) {
         case 'waiting':
             return <Loader />;
-            break;
         case 'loading':
             return newItemLoading ? <Component /> : <Loader />;
-            break;
         case 'confirmed':
             return <Component />;
-            break;
         case 'error':
             return <Error />;
-            break;
         default:
             throw new Error('Unexpected process state');
     }

@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useCallback, useState} from 'react'
 import { Helmet } from 'react-helmet';
 
 import RandomChar from "../randomChar/RandomChar";
@@ -12,9 +12,9 @@ import CharSearchForm from '../charSearchForm/CharSearchForm';
 const MainPage = () => {
   const [selectedChar, setSelectedChar] = useState(null)
 
-  const onCharSelected = (id) => {
+  const onCharSelected = useCallback((id) => {
     setSelectedChar(id)
-  }
+  }, [selectedChar])
   
   return (
     <>
